@@ -44,13 +44,9 @@ public class AuthenticationController {
     ) throws Exception {
         try {
             return ResponseEntity.ok(service.authenticate(request));
-        }catch (AccountBlockedException ae){
-            log.info("/authenticate", ae);
-            return new ResponseEntity<>(ae.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.info("/authenticate", e);
-            return new ResponseEntity<>("inavalid username/password", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("invalid username/password "+e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
